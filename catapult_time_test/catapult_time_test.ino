@@ -24,18 +24,18 @@ void setup()
 void loop()
 {       
         
-        while(!startbutton()){
+        while(digitalRead(0) == LOW){
           interval = analogRead(6);
           LCD.clear(); LCD.print(interval);
           delay(50);
         }
-        while(startbutton()){};
+        while(digitalRead(0) == HIGH){};
         timeStart = millis();
-        motor.speed(LEFT_MOTOR,255);
+        //motor.speed(LEFT_MOTOR,255);
         motor.speed(RIGHT_MOTOR,255);
         
         while( millis() - timeStart < interval ){};
-        motor.speed(LEFT_MOTOR,0);
+        //motor.speed(LEFT_MOTOR,0);
         motor.speed(RIGHT_MOTOR,0);        
         
 }
