@@ -2,20 +2,23 @@
 #include <LiquidCrystal.h>
 
 // Sensor Ports
-#define LEFT_MOTOR 1
-#define RIGHT_MOTOR 0
+//#define LEFT_MOTOR 1
+#//define RIGHT_MOTOR 0
  
-int count = 0;
-int buttonSwitchCount = 1;
-int timeStart;
+//int count = 0;
+//int buttonSwitchCount = 1;
+//int timeStart;
 int interval;
+int catapult_pin = 36;
  
 void setup()
 {
 	#include <phys253setup.txt>
 	LCD.clear();
 	LCD.home();
-        
+
+for (int i = 8; i < 16; i++) 
+        pinMode(i, OUTPUT);
       	LCD.print("Press Start.");
         while(!startbutton()){};
         LCD.clear();
@@ -30,12 +33,10 @@ void loop()
           delay(50);
         }
         while(digitalRead(0) == HIGH){};
-        timeStart = millis();
-        //motor.speed(LEFT_MOTOR,255);
-        motor.speed(RIGHT_MOTOR,255);
+        //motor.speed(RIGHT_MOTOR,255);
+        digitalWrite(catapult_pin,HIGH);
         
-        while( millis() - timeStart < interval ){};
-        //motor.speed(LEFT_MOTOR,0);
-        motor.speed(RIGHT_MOTOR,0);        
-        
+        delay(interval);
+        //motor.speed(RIGHT_MOTOR,0);
+        digitalWrite(catapult_pin,LOW);
 }
