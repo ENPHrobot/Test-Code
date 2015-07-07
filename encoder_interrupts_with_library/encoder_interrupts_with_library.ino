@@ -15,6 +15,7 @@ void setup()
 
     enableExternalInterrupt(INT0, RISING);
     attachISR(INT0, incre);
+    attachTimerInterrupt(1, incre);
 
     LCD.print("Press Start.");
     while (!startbutton()) {};
@@ -25,7 +26,10 @@ void loop()
 {
     while (startbutton()) {
         delay(250);
-        if (encount > 100) attachISR(INT0, decre);
+        if (encount > 100)  {
+            attachISR(INT0, decre);
+            attachTimerInterrupt(1,decre);
+        }
         else attachISR(INT0, incre);
     }
     LCD.clear();
