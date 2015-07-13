@@ -4,7 +4,7 @@
 #include <Interrupts.h>
 
 // Sensor Ports
-#define ENCODER_A 0
+#define ENCODER_A 1
 
 volatile unsigned int encount = 0;
 
@@ -13,8 +13,8 @@ void setup()
 #include <phys253setup.txt>
     LCD.clear(); LCD.home();
 
-    enableExternalInterrupt(INT0, RISING);
-    attachISR(INT0, incre);
+    enableExternalInterrupt(INT1, RISING);
+    attachISR(INT1, incre);
     attachTimerInterrupt(1, incre);
 
     LCD.print("Press Start.");
@@ -28,9 +28,16 @@ void loop()
         delay(250);
         if (encount > 100)  {
             attachISR(INT0, decre);
-            attachTimerInterrupt(1,decre);
+            attachTimerInterrupt(1, decre);
         }
-        else attachISR(INT0, incre);
+        else {
+            attachISR(INT1, incre);
+            attachTimerInterrupt(1, incre);
+        }
+    }
+    while ( stopbutton()){
+        delay(250);
+        detachTimerInterrupt();
     }
     LCD.clear();
     LCD.print(encount);
