@@ -6,6 +6,7 @@
 #define LEFT_MOTOR 1
 #define RIGHT_MOTOR 0
 #define MOTOR 0
+#define pauseMTR() (motor.speed(LEFT_MOTOR,0))
 
 int value = 0;
  
@@ -21,7 +22,10 @@ void setup()
 }
 
 void loop()
-{        
+{       
+        if ( startbutton()) {
+            pauseMTR();
+        }
         value = analogRead(6)/2 - 256; // Read from knob
         motor.speed(MOTOR, value);
         LCD.clear();
