@@ -1,6 +1,6 @@
 #include <avr/EEPROM.h>
 #include <phys253.h>
-#include <Interrupts.h>
+//#include <Interrupts.h>
 #include <LiquidCrystal.h>
 
 int prevAngle;
